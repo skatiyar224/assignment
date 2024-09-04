@@ -1,113 +1,155 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { useState } from "react";
+import { FaArrowLeft, FaArrowRight, FaRegQuestionCircle } from "react-icons/fa";
+import { BiGridVertical } from "react-icons/bi";
+import TabButton from "../../components/TabButton"; 
+import { AboutMe, Experiences, Recommended } from "../../components/TabContent"; 
+
+const ProfilePage = () => {
+  const [images, setImages] = useState([]);
+  const [activeTab, setActiveTab] = useState("AboutMe");
+
+  const handleImageUpload = (event) => {
+    const files = event.target.files;
+    const updatedImages = [...images];
+
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        updatedImages.push(e.target.result);
+        setImages([...updatedImages]);
+      };
+      reader.readAsDataURL(files[i]);
+    }
+  };
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "AboutMe":
+        return <AboutMe />;
+      case "Experiences":
+        return <Experiences />;
+      case "Recommended":
+        return <Recommended />;
+      default:
+        return <AboutMe />;
+    }
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="bg-gray-900 text-white">
+      {/* Navbar */}
+      <div className="flex justify-between items-center p-4 bg-gray-800">
+        <div className="text-xl">Sample</div>
+        <div className="flex space-x-4">
+          <div className="space-y-1">
+            <div className="h-1 w-6 bg-white"></div>
+            <div className="h-1 w-6 bg-white"></div>
+            <div className="h-1 w-6 bg-white"></div>
+          </div>
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="w-full flex items-center justify-center">
+        <div className="w-[45%] left bg-gray-900 text-white"></div>
+        <div className="w-[55%] right">
+          <div className="min-h-screen bg-gray-900 text-white">
+            {/* Main Content */}
+            <div className="py-8 px-4">
+              {/* Tabs Section */}
+              <div className="w-full box bg-gray-800 p-4 relative rounded-lg shadow-md mb-4 flex items-center justify-center">
+                <div className="questionmark w-[10%]">
+                  <FaRegQuestionCircle className="w-[18px] h-[18px] absolute top-[15px] text-zinc-500" />
+                  <BiGridVertical className="w-[38px] h-[38px] text-slate-600" />
+                </div>
+                <div className="w-[90%]">
+                  <div className="personal flex items-center justify-center relative">
+                    <div className="w-[100%] btn flex items-center justify-evenly space-x-4 mb-[20px] bg-zinc-900 rounded-lg">
+                      <TabButton
+                        isActive={activeTab === "AboutMe"}
+                        onClick={() => setActiveTab("AboutMe")}
+                      >
+                        About Me
+                      </TabButton>
+                      <TabButton
+                        isActive={activeTab === "Experiences"}
+                        onClick={() => setActiveTab("Experiences")}
+                      >
+                        Experiences
+                      </TabButton>
+                      <TabButton
+                        isActive={activeTab === "Recommended"}
+                        onClick={() => setActiveTab("Recommended")}
+                      >
+                        Recommended
+                      </TabButton>
+                    </div>
+                  </div>
+                  <div className="overflow-y-auto max-h-40 overflow-auto">
+                    {renderContent()}
+                  </div>
+                </div>
+              </div>
+
+              {/* Horizontal Line */}
+              <div className="hr flex items-center justify-center box">
+                <hr className="w-[85%] text-zinc-700 pb-5" />
+              </div>
+
+              {/* Gallery Section */}
+              <div className="w-[100%] box bg-gray-800 p-4 rounded-lg shadow-md flex items-center justify-center relative">
+                <div className="questionmark w-[10%]">
+                  <FaRegQuestionCircle className="w-[18px] h-[18px] absolute top-[15px] text-zinc-500" />
+                  <BiGridVertical className="w-[38px] h-[38px] text-slate-600" />
+                </div>
+                <div className="w-[90%]">
+                  <div className="flex justify-between items-center mb-[50px]">
+                    <button className="bg-black font-semibold px-4 py-2 rounded-lg focus:outline-none">
+                      Gallery
+                    </button>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleImageUpload}
+                      className="hidden"
+                      id="upload-input"
+                    />
+                    <label
+                      htmlFor="upload-input"
+                      className="Addimage translate-x-6 bg-gray-700 px-4 py-2 rounded-full focus:outline-none cursor-pointer"
+                    >
+                      + Add Image
+                    </label>
+                    <div className="icons flex items-center justify-center gap-10">
+                      <FaArrowLeft className="lefticon bg-black p-3 rounded-full w-[45px] h-[45px] text-zinc-700" />
+                      <FaArrowRight className="righticon bg-black p-3 rounded-full w-[45px] h-[45px] text-zinc-700" />
+                    </div>
+                  </div>
+                  <div className="flex space-x-4 flex-wrap overflow-x-auto">
+                    {images.map((image, index) => (
+                      <img
+                        key={index}
+                        src={image}
+                        alt={`Uploaded Image ${index + 1}`}
+                        className="w-32 h-32 bg-gray-600 rounded-lg object-cover mb-4"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Horizontal Line */}
+              <div className="hr pt-5 flex items-center justify-center">
+                <hr className="w-[85%] text-zinc-700" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default ProfilePage;

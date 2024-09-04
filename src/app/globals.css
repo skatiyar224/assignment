@@ -2,32 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+.box{
+  box-shadow: 15px 10px 10px black;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.btn :hover{
+  box-shadow: 15px 10px 10px black;
+  transition: ease-in-out 0.4s;
+  background-color: rgb(63 63 70);
+  outline: none;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.btn1{
+  box-shadow: 15px 10px 10px black;
+  transition: ease-in-out 0.4s;
+  background-color: rgb(63 63 70);
+  outline: none;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.Addimage{
+  box-shadow: -10px -20px 10px white inset;
+  box-shadow: 15px 10px 10px black;
+}
+
+.righticon, .lefticon{
+  box-shadow: -5px -2px 20px snow;
+
 }
