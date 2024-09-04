@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaRegQuestionCircle } from "react-icons/fa";
 import { BiGridVertical } from "react-icons/bi";
-import TabButton from "../../components/TabButton"; 
-import { AboutMe, Experiences, Recommended } from "../../components/TabContent"; 
+import TabButton from "../../components/TabButton";
+import { AboutMe, Experiences, Recommended } from "../../components/TabContent";
 
 const ProfilePage = () => {
   const [images, setImages] = useState([]);
@@ -129,7 +129,7 @@ const ProfilePage = () => {
                   </div>
                   <div className="flex space-x-4 flex-wrap overflow-x-auto">
                     {images.map((image, index) => (
-                      <Image
+                      <img
                         key={index}
                         src={image}
                         alt={`Uploaded Image ${index + 1}`}

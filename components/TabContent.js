@@ -3,7 +3,7 @@ import React from "react";
 const AboutMe = () => (
   // eslint-disable-next-line react/no-unescaped-entities
   <div>
-    <p>Hello! I'm Dave, your sales rep here from Salesforce...</p>
+    <p>Hello! I am Dave, your sales rep here from Salesforce...</p>
     <br />
     <p>
       I was born and raised in Albany, NY & have been living in Santa Carla...
