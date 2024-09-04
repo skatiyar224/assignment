@@ -129,7 +129,7 @@ const ProfilePage = () => {
                   </div>
                   <div className="flex space-x-4 flex-wrap overflow-x-auto">
                     {images.map((image, index) => (
-                      <img
+                      <Image
                         key={index}
                         src={image}
                         alt={`Uploaded Image ${index + 1}`}

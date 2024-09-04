@@ -1,6 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
+
 import React from "react";
 
 const AboutMe = () => (
+  // eslint-disable-next-line react/no-unescaped-entities
   <div>
     <p>Hello! I'm Dave, your sales rep here from Salesforce...</p>
     <br />
